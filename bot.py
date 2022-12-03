@@ -9,12 +9,24 @@ import re
 
 # Aquí vendrá la implementación de la lógica del bot
 
-@bot.message_handler(commands=['ping'])
-def on_command_ping(message):
+@bot.message_handler(commands=['start'])
+def on_command_start(message):
+    bot.send_chat_action(message.chat.id, 'typing')
+    sleep(1)
+
     bot.send_message(
         message.chat.id,
-        "pong!",
+        "Hola, soy un \U0001F60D, ¿cómo estás?",
         parse_mode="Markdown")
+
+@bot.message_handler(func=lambda message: True)
+def on_fallback(message):
+    bot.send_chat_action(message.chat.id, 'typing')
+    sleep(1)
+
+    bot.reply_to(
+        message,
+        "\U0001F63F Ups, no entendí lo que me dijiste.")
 
 #########################################################
 
